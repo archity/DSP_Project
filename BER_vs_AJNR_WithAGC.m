@@ -1,4 +1,4 @@
-%BER vs AJNR
+%BER vs AJNR in the presence of AGC
 
 
 Tj(1) = 300 * 10^-6;
@@ -15,8 +15,12 @@ BER = zeros(1, 4000-20+1);
 
 for i = 1 : 3
     [AJNR_OP, BER_OP] = Func_AJNR_BER_WithAGC(Tj(i), JNR);
+    % User defined function present in the script itself.
+    
     AJNR(i, :) = AJNR_OP;
     BER(i, :) = BER_OP;
+    % 3 arrays of AJNR and BER for 3 different values of duty ration stored
+    % in the variables above.
 end
 
 Scale_Vert1 = (BER(1, :));
@@ -25,9 +29,12 @@ Scale_Vert2 = (BER(2, :));
 dB_Scale_Horz2 = (AJNR(2, :))./(20*log10(AJNR(2, :)));
 Scale_Vert3 = (BER(3, :));
 dB_Scale_Horz3 = (AJNR(3, :))./(20*log10(AJNR(3, :)));
+% Horizontal scale is divided by log so as to plot AJNR/dB.
 
 figure;
 plot(dB_Scale_Horz1, Scale_Vert1, dB_Scale_Horz2, Scale_Vert2, dB_Scale_Horz3, Scale_Vert3);
+% Plot all 3 curves wrt AJNR axis in one graph.
+
 legend('DutyCycle = .3', 'DutyCycle = .6', 'DutyCycle = .9')
 title('BER vs AJNR in the presence of AGC');
 xlabel('AJNR/dB'); ylabel('Bit Error Rate (BER)');
@@ -35,7 +42,7 @@ xlabel('AJNR/dB'); ylabel('Bit Error Rate (BER)');
 %--------------------------------------------------------------------------
 
 function [ AJNR, BER ] = Func_AJNR_BER_WithAGC( Tj, JNR )
-    CNR = 45;
+    CNR = 45;   % Carrier to Noise Ratio
     K = 0.903;
     T = 10^-3;  % Integration period
     
