@@ -24,7 +24,9 @@ dB_Scale_Horz3 = (AJNR(3, :))./(20*log10(AJNR(3, :)));
 
 figure;
 plot(dB_Scale_Horz1, Scale_Vert1, dB_Scale_Horz2, Scale_Vert2, dB_Scale_Horz3, Scale_Vert3);
-legend('DutyCycle = .3', 'DutyCycle = .6', 'DutyCycle = .9')
+legend('DutyCycle = 0.3', 'DutyCycle = 0.6', 'DutyCycle = 0.9');
+title('BER vs AJNR in the absence of AGC');
+xlabel('AJNR/dB'); ylabel('Bit Error Rate (BER)');
 % Plotting all 3 curves wrt AJNR axis.
 
 function [ AJNR, BER ] = Func_AJNR_BER( Tj, JNR )
